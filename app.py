@@ -6,12 +6,12 @@ app = flask.Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 @app.route("/")
-def index():
-    print("This is a debug statement")
-
+def hello_world():
+    release_data = get_releases()
+    releases = release_data["releases"]
     return flask.render_template(
         "index.html",
-        releases = get_releases()
+        releases = releases
     )
 
 app.run(

@@ -31,7 +31,7 @@ response_json = response.json()
 def get_releases():
     releases = response_json["albums"]["items"]
     release_list = []
-    for i in releases:
+    for i in range(10):
         release_list.append(releases[i]["name"])
     return {
         "releases": release_list
