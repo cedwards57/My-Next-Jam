@@ -1,4 +1,3 @@
-import os
 import flask
 import random
 from sptfy import get_info
