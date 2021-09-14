@@ -24,15 +24,50 @@ params = {
     "limit": 10
 }
 
-response = requests.get(BASE_URL + "browse/new-releases", headers=headers, params=params)
+def get_info():
+    """ Grabs all the Spotify info needed for the page. Imported to app.py. """
 
-response_json = response.json()
+    def get_releases():
+        response = requests.get(BASE_URL + "browse/new-releases", headers=headers, params=params)
+        response_json = response.json()
 
-def get_releases():
-    releases = response_json["albums"]["items"]
-    release_list = []
-    for i in range(10):
-        release_list.append(releases[i]["name"])
-    return {
-        "releases": release_list
+        releases = response_json["albums"]["items"]
+        release_list = []
+        for i in releases:
+            release_list.append(i["name"])
+        return release_list
+
+    def get_artist_songs(artist):
+        response = requests.get(BASE_URL + "artists/" + artist + "/albums", headers=headers)
+        response_json = response.json()
+        albums = response_json["items"]
+        album_list = []
+
+        for i in albums:
+            album_list.append(i["id"])
+        
+        song_list = []
+        for i in album_list:
+            album_response = requests.get(BASE_URL + "albums/" + i + "/tracks", headers=headers)
+            album_response_json = album_response.json()
+
+            songs = album_response_json["items"]
+            for j in songs:
+                song_list.append(j["name"])
+
+        return song_list
+    
+    artist_list = {
+        "Marina": "6CwfuxIqcltXDGjfZsMd9A"
     }
+
+    song_list = []
+    for i in artist_list.values():
+        song_list.extend(get_artist_songs(i))
+
+    return {
+        "releases": get_releases(),
+        "songs": song_list
+    }
+
+get_info()
