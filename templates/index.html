@@ -5,7 +5,11 @@
     </head>
     <body>
         <p>Test Text</p>
-        <p>{{ releases[2] }}</p>
         <p>{{ random_song["name"] }} - {{ random_song["artist"] }} ({{ random_song["album"] }})</p>
+
+        <form method="POST">
+            <input name="text">
+            <input type="submit">
+        </form>
     </body>
 </html>
