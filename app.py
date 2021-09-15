@@ -10,7 +10,7 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 def index():
     sptfy_data = get_info()
     releases = sptfy_data["releases"]
-    songs = sptfy_data["songs"]
+    songs = sptfy_data["all_songs"]
     return flask.render_template(
         "index.html",
         releases = releases,
@@ -18,7 +18,8 @@ def index():
         random_song = random.choice(songs)
     )
 
-app.run(
-    host="0.0.0.0",
-    port=int(os.getenv("PORT", "8080"))
-)
+app.run()
+# app.run(
+#     host="0.0.0.0",
+#     port=int(os.getenv("PORT", "8080"))
+# )

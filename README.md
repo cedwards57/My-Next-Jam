@@ -57,10 +57,10 @@ WIP. to add:
 **A. What are at least 3 technical issues you encountered with your project? How did you fix them?**
 1. For a while I couldn't get the app to appear correctly on Heroku, but it turned out I had a problem in `sptfy.py` where I was trying to access list values out of a dictionary without specifying the key.
 2. I had trouble with getting Spotify to properly authenticate, but once I learned how to do the base64 authentication and convert it to usable format, it worked fine. I also had troublr where I thought for a while that the `params` items should be in `headers`, and couldn't figure out why it wasn't recognizing my given parameters until that was fixed.
-3. 
+3. Kept finding that my artists were turning up albums like "Indie Pop 101" or whatever, which are generalized playlists with tons of artists, not actual albums. 
 
 **B. What are known problems (still existing), if any, with your project?**
 
 
 **C. What would you do to improve your project in the future?**
-
+I'd probably want to fiddle more with `sptfy.py` to make it pass less redundant parameters throughout.

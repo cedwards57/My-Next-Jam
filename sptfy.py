@@ -1,6 +1,7 @@
 import requests
 import os
 from dotenv import find_dotenv, load_dotenv
+import random
 
 load_dotenv(find_dotenv())
 
@@ -20,14 +21,14 @@ headers = {
     "Authorization": str("Bearer " + token)
 }
 
-params = {
-    "limit": 10
-}
-
 def get_info():
     """ Grabs all the Spotify info needed for the page. Imported to app.py. """
 
     def get_releases():
+        """ Returns the latest 10 Spotify releases. """
+        params = {
+            "limit": 10
+        }
         response = requests.get(BASE_URL + "browse/new-releases", headers=headers, params=params)
         response_json = response.json()
 
@@ -37,37 +38,56 @@ def get_info():
             release_list.append(i["name"])
         return release_list
 
-    def get_artist_songs(artist):
-        response = requests.get(BASE_URL + "artists/" + artist + "/albums", headers=headers)
+    def get_albums(artist_id):
+        params = {
+            "include_groups": "album,single"
+        }
+        response = requests.get(BASE_URL + "artists/" + artist_id + "/albums", headers=headers, params=params)
         response_json = response.json()
         albums = response_json["items"]
         album_list = []
 
         for i in albums:
-            album_list.append(i["id"])
-        
+            album_list.append((i["id"],i["name"]))
+        return album_list
+
+    def get_all_songs(artist,album_list):
+        """ Returns a list of dicts of all the current artist's songs """
         song_list = []
         for i in album_list:
-            album_response = requests.get(BASE_URL + "albums/" + i + "/tracks", headers=headers)
-            album_response_json = album_response.json()
-
-            songs = album_response_json["items"]
-            for j in songs:
-                song_list.append(j["name"])
-
+            song_list.extend(get_album_songs(artist,i))
         return song_list
     
-    artist_list = {
-        "Marina": "6CwfuxIqcltXDGjfZsMd9A"
-    }
+    def get_album_songs(artist,album):
+        """ Returns a list of dicts about each song in the given album. """
+        album_response = requests.get(BASE_URL + "albums/" + album[0] + "/tracks", headers=headers)
+        album_response_json = album_response.json()
+        songs = album_response_json["items"]
 
-    song_list = []
-    for i in artist_list.values():
-        song_list.extend(get_artist_songs(i))
+        album_songs = []
+        for j in songs:
+            this_song = {"name": j["name"], "id": j["id"], "artist": artist, "album": album[1]}
+            album_songs.append(this_song)
+
+        return album_songs
+
+    def get_artist_songs(artist,artist_id):
+        """ Returns a list of dictionaries with the name, artist, album, and ID of every song by the specified artist. Includes artist field because it gets compiled into a larger list with more artists later."""
+        return get_all_songs(artist,get_albums(artist_id))
+    
+    # Takes a dictionary of artists and returns a list of dictionaries identifying ALL the songs between them.
+    artist_list = {
+        "MARINA": "6CwfuxIqcltXDGjfZsMd9A",
+        "The Hush Sound": "1RCoE2Dq19lePKhPzt9vM5",
+        "The Family Crest": "44CB1c0W2h1XR2vB7AKpa7"
+    }
+    all_song_list = []
+    for i in artist_list:
+        all_song_list.extend(get_artist_songs(i,artist_list[i]))
 
     return {
         "releases": get_releases(),
-        "songs": song_list
+        "all_songs": all_song_list
     }
 
-get_info()
+# change structure to artist: albums: songs
