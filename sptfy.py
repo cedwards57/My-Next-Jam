@@ -118,13 +118,15 @@ def get_info():
             "type": "artist",
             "limit": 1
         }
-
-        response = requests.get(BASE_URL + "search", headers=headers, params=params)
-        response_json = response.json()
-        artist_id = response_json["artists"]["items"][0]["id"]
-        return artist_id
+        try:
+            response = requests.get(BASE_URL + "search", headers=headers, params=params)
+            response_json = response.json()
+            artist_id = response_json["artists"]["items"][0]["id"]
+            return artist_id
+        except (KeyError, IndexError):
+            return "0gxyHStUsqpMadRV0Di1Qt"
     
-    query = "ABBA" # change to user input
+    query = "754urfyjhd" # change to user input
     random_song_from_input_artist = get_track_info(get_random_track(get_random_album(get_artist_from_search(query))))
     
     print(random_song_from_input_artist)
