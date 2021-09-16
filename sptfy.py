@@ -126,7 +126,7 @@ def get_info():
         except (KeyError, IndexError):
             return "0gxyHStUsqpMadRV0Di1Qt"
     
-    query = "754urfyjhd" # change to user input
+    query = "ABBA" # change to user input
     random_song_from_input_artist = get_track_info(get_random_track(get_random_album(get_artist_from_search(query))))
     
     print(random_song_from_input_artist)
