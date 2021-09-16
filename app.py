@@ -14,10 +14,7 @@ def index():
         random_song = random_song
     )
 
-
-app.run()
-
-# app.run(
-#     host="0.0.0.0",
-#     port=int(os.getenv("PORT", "8080"))
-# )
+app.run(
+    host="0.0.0.0",
+    port=int(os.getenv("PORT", "8080"))
+)
