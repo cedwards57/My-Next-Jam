@@ -11,7 +11,7 @@ CLIENT_ID = os.getenv("CLIENT_ID")
 CLIENT_SECRET = os.getenv("CLIENT_SECRET")
 GENIUS_AUTH_URL = "https://api.genius.com/oauth/authorize"
 GENIUS_BASE_URL = "https://api.genius.com/"
-GENIUS_TOKEN = str(os.getenv("GENIUS_TOKEN"))
+GENIUS_TOKEN = os.getenv("GENIUS_TOKEN")
 
 auth_response = requests.post(AUTH_URL, {
     "grant_type": 'client_credentials',
