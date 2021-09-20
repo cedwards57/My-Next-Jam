@@ -5,12 +5,21 @@
         <link rel="stylesheet" href="/static/style.css" type="text/css" />
     </head>
     <body>
-        <p>Test Text</p>
-        <p>{{ random_song["name"] }} - {{ random_song["artist"] }} ({{ random_song["album"] }})</p>
-
-        <form method="POST">
-            <input name="text">
-            <input type="submit">
-        </form>
+        <div class="songbox">
+            <h2 class="songtitle">{{ random_song["name"] }}</h2>
+            <h3 class="songartist">{{ random_song["artist"] }}</h3>
+            <h4 class="songalbum">{{ random_song["album"] }}</h4>
+            <br />
+            <img src={{ random_song["image_url"] }} width="300" />
+            <p class="songpreview">
+                {% if random_song["preview_url"] != None %}
+                <a href={{ random_song["preview_url"] }}>Preview</a>
+                {% else %}
+                No preview available
+                {% endif %}
+            </p>
+            <p class="songlyrics"><a href={{ random_song["genius_url"] }}>Lyrics</a></p>
+            <p><small><a href=".">Different song, please :(</a></small></p>
+        </div>
     </body>
 </html>

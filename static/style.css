@@ -1,0 +1,14 @@
+body {
+    background-color: #eee8aa;
+    font-family: 'Courier New', monospace;
+}
+
+.songbox {
+    border: 2px solid #f08080;
+    border-radius: 5px;
+    padding: 20px;
+    width: 400px;
+    text-align: center;
+    margin: 15px auto;
+    background-color: white;
+}

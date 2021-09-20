@@ -45,21 +45,25 @@ def get_info():
 
     def get_track_info(track_id):
         """ Return a dictionary of all necessary info for a single song. """
+        params = {
+            "market": "UM"
+        }
 
         try:
-            response = requests.get(BASE_URL + "tracks/" + track_id, headers=headers)
+            response = requests.get(BASE_URL + "tracks/" + track_id, headers=headers, params=params)
             response_json = response.json()
             genius_url = get_genius_url(response_json["name"])
 
             track_info = {
                 "name": response_json["name"],
+                "track_id": track_id,
                 "album": response_json["album"]["name"],
                 "album_id": response_json["album"]["id"],
                 "artist": response_json["album"]["artists"][0]["name"],
                 "artist_id": response_json["album"]["artists"][0]["id"],
                 "image_url": response_json["album"]["images"][0]["url"],
                 "preview_url": response_json["preview_url"],
-                "genius_link": genius_url
+                "genius_url": genius_url
             }
             return track_info
         except KeyError:
@@ -71,7 +75,7 @@ def get_info():
                 "artist_id": "0gxyHStUsqpMadRV0Di1Qt",
                 "image_url": "https://i.scdn.co/image/ab67616d0000b273255e131abc1410833be95673",
                 "preview_url": None,
-                "genius_link": "https://genius.com/Rick-astley-never-gonna-give-you-up-lyrics"
+                "genius_url": "https://genius.com/Rick-astley-never-gonna-give-you-up-lyrics"
             }
 
     def get_random_track(album_id):
@@ -86,7 +90,7 @@ def get_info():
             random_song_id = random_song["id"]
             return random_song_id
         except KeyError:
-            return "4uLU6hMCjMI75M1A2tKUQC"
+            return "x"
 
     def get_random_album(artist_id):
         """ Returns a random album or single ID from the given artist. """
@@ -102,15 +106,7 @@ def get_info():
             random_album_id = random_album["id"]
             return random_album_id
         except KeyError:
-            return "6N9PS4QXF1D0OWPk0Sxtb4"
-
-    my_artists = {
-        "MARINA": "6CwfuxIqcltXDGjfZsMd9A",
-        "The Hush Sound": "1RCoE2Dq19lePKhPzt9vM5",
-        "The Family Crest": "44CB1c0W2h1XR2vB7AKpa7"
-    }
-    
-    random_song = get_track_info(get_random_track(get_random_album(random.choice(list(my_artists.values())))))
+            return "x"
 
     def get_artist_from_search(query):
         params = {
@@ -124,16 +120,24 @@ def get_info():
             artist_id = response_json["artists"]["items"][0]["id"]
             return artist_id
         except (KeyError, IndexError):
-            return "0gxyHStUsqpMadRV0Di1Qt"
+            return "x"
+    
+    my_artists = {
+        "MARINA": "6CwfuxIqcltXDGjfZsMd9A",
+        "The Hush Sound": "1RCoE2Dq19lePKhPzt9vM5",
+        "The Family Crest": "44CB1c0W2h1XR2vB7AKpa7",
+        "ABBA": get_artist_from_search("ABBA"),
+        "Lemon Demon": get_artist_from_search("Lemon Demon"),
+        "Brick + Mortar": get_artist_from_search("Brick + Mortar")
+    }
+    
+    random_song = get_track_info(get_random_track(get_random_album(random.choice(list(my_artists.values())))))
     
     query = "ABBA" # change to user input
     random_song_from_input_artist = get_track_info(get_random_track(get_random_album(get_artist_from_search(query))))
     
-    print(random_song_from_input_artist)
     
     return {
         "random_song": random_song,
         "random_song_output": random_song_from_input_artist
     }
-
-get_info()
