@@ -27,7 +27,7 @@ headers = {
 }
 
 genius_headers = {
-    "Authorization": str("Bearer " + GENIUS_TOKEN)
+    "Authorization": "Bearer " + GENIUS_TOKEN
 }
 
 def get_info():
