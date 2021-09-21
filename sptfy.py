@@ -20,7 +20,11 @@ auth_response = requests.post(AUTH_URL, {
 })
 
 auth_response_json = auth_response.json()
-token = auth_response_json["access_token"]
+
+try:
+    token = auth_response_json["access_token"]
+except KeyError:
+    token = "invalid_token"
 
 headers = {
     "Authorization": str("Bearer " + token)
