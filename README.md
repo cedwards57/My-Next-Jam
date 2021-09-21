@@ -73,7 +73,11 @@ WIP. to add:
 4. Had a problem where Genius would glitch on Heroku only, which turned out to be because I forgot to include that API key on Heroku.
 
 **B. What are known problems (still existing), if any, with your project?**
-None known. Though Genius has a flaw where it rarely returns the correct song from the exact title, this was listed in the specs as fine (although I'll probably try to fix it later anyway.)
+Genius has a flaw where it rarely returns the correct song from the exact title, though this was listed in the specs as fine (although I'll probably try to fix it later anyway.) I'll likely fix this by adding more into the Genius query parameter, like writing the song's name and artist both in the query. I'll need to experiment some with it.
+
+Additionally, I've never had a song successfully return a preview URL, regardless of market region or anything else. (As in, there's literally no link returned in the track information, even when it should be.) I'd like to work on implementing a music player instead, to circumvent this.
 
 **C. What would you do to improve your project in the future?**
-I'd probably want to fiddle more with `sptfy.py` to make it pass less redundant parameters throughout. I'd also want to display more songs at once, and add in search functionality. Maybe add a thing where you can search for an artist, then that artist gets added to a list of checkboxes, then you can use those checkboxes to choose what selection of artists you get a random song from? Also might work on making the Genius lyrics more accurate.
+I'd probably want to fiddle more with `sptfy.py` to make it pass less redundant parameters throughout. I'd also want to display more songs at once, and add in search functionality. Maybe add a thing where you can search for an artist, then that artist gets added to a list of checkboxes, then you can use those checkboxes to choose what selection of artists you get a random song from?
+
+I also might work on making the Genius lyrics more accurate, and if possible, pulling the lyrics out and listing them somewhere, like to the side. Additionally,
