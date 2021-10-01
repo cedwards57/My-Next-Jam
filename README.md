@@ -47,8 +47,8 @@ replacing **yourclientid** and **yourclientsecret** with the corresponding infor
 ## Install Requirements
 
 If you haven't already installed them, run these commands:
-`pip install python-dotenv`
-`pip install requests`
+<br>`pip install python-dotenv`
+<br>`pip install requests`
 
 ## Deploy to Heroku
 

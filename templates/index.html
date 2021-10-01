@@ -3,6 +3,7 @@
     <head>
         <title></title>
         <link rel="stylesheet" href="/static/style.css" type="text/css" />
+        <script type="text/javascript" src="/static/script.js"></script>
     </head>
     <body>
         <div class="songbox">
@@ -20,6 +21,15 @@
             </p>
             <p class="songlyrics"><a href={{ random_song["genius_url"] }}>Lyrics</a></p>
             <p><small><a href=".">Different song, please :(</a></small></p>
+            <p>
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                {% for message in messages %}
+                {{ message }}
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+            </p>
         </div>
     </body>
 </html>
