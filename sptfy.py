@@ -66,19 +66,21 @@ def get_info():
                 "artist": response_json["album"]["artists"][0]["name"],
                 "artist_id": response_json["album"]["artists"][0]["id"],
                 "image_url": response_json["album"]["images"][0]["url"],
-                "preview_url": response_json["preview_url"],
+                "preview_url": "https://open.spotify.com/embed/track/"
+                + response_json["album"]["id"],
                 "genius_url": genius_url
             }
             return track_info
         except KeyError:
             return {
                 "name": "Never Gonna Give You Up",
+                "track_id": "4uLU6hMCjMI75M1A2tKUQC",
                 "album": "Whenever You Need Somebody",
                 "album_id": "6N9PS4QXF1D0OWPk0Sxtb4",
                 "artist": "Rick Astley",
                 "artist_id": "0gxyHStUsqpMadRV0Di1Qt",
                 "image_url": "https://i.scdn.co/image/ab67616d0000b273255e131abc1410833be95673",
-                "preview_url": None,
+                "preview_url": "https://open.spotify.com/embed/track/4uLU6hMCjMI75M1A2tKUQC",
                 "genius_url": "https://genius.com/Rick-astley-never-gonna-give-you-up-lyrics"
             }
 

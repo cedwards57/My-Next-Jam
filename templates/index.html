@@ -14,7 +14,8 @@
             <img src={{ random_song["image_url"] }} width="300" />
             <p class="songpreview">
                 {% if random_song["preview_url"] != None %}
-                <a href={{ random_song["preview_url"] }}>Preview</a>
+                <iframe src="https://open.spotify.com/embed/track/{{ random_song["track_id"] }}"" width="300" height="80"
+                frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
                 {% else %}
                 No preview available
                 {% endif %}
