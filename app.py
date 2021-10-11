@@ -10,7 +10,6 @@ from flask_login import (
 )
 from sptfy import get_info, get_artist_from_search, get_artist_name_from_id
 from models import UserLogin, LikesArtist, db
-from flask_sqlalchemy import SQLAlchemy
 
 load_dotenv(find_dotenv())
 # testuser1, xyz

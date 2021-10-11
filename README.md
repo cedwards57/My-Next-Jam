@@ -81,7 +81,7 @@ WIP. to add:
 5. Genius wasn't returning the correct songs a lot of the time; I updated its function to include the artist name along with the title in the search.
 
 **B. What are known problems (still existing), if any, with your project?**
-No real problems, but I'd like to update the design.
+No known problems, though I'd like to make the front-end design a little more elegant, and divide up the modules on the back-end a little more.
 
 **C. What would you do to improve your project in the future?**
 I'd like to create functionality where the list of artists has checkboxes, and you can click the checkbox by certain artists in order to only include songs from those artists in the shuffle.
