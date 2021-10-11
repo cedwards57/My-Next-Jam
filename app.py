@@ -8,7 +8,7 @@ from flask_login import (
     login_user,
     logout_user,
 )
-from sptfy import get_info
+from sptfy import get_info, get_artist_from_search
 from models import UserLogin, LikesArtist, db
 from flask_sqlalchemy import SQLAlchemy
 
@@ -34,11 +34,15 @@ def load_user(user_id):
 
 @app.route("/")  # login GET
 def enter():
+    if current_user.is_authenticated:
+        return flask.redirect("/userpage")
     return flask.render_template("enter.html")
 
 
 @app.route("/create")  # signup GET
 def create():
+    if current_user.is_authenticated:
+        return flask.redirect("/userpage")
     return flask.render_template("create.html")
 
 
@@ -73,7 +77,6 @@ def signup():
         return flask.redirect("/create")
     else:
         new_user = UserLogin(username=entered_name, password=entered_pw)
-        print(new_user)
         db.session.add(new_user)
         db.session.commit()
         login_user(new_user)
@@ -83,9 +86,26 @@ def signup():
 @app.route("/userpage")  # main page
 @login_required
 def userpage():
-    sptfy_data = get_info()
+    artist_ids = LikesArtist.query.filter_by(username=current_user.username).all()
+    my_artists = [i.artist_id for i in artist_ids]
+    sptfy_data = get_info(my_artists)
     random_song = sptfy_data["random_song"]
     return flask.render_template("index.html", random_song=random_song)
+
+
+@app.route("/songadd", methods=["POST"])
+@login_required
+def songadd():
+    artist_name = flask.request.form["artistname"]
+    print(artist_name)
+    artist_id = get_artist_from_search(artist_name)
+    if artist_id != "x":
+        new_artist = LikesArtist(username=current_user.username, artist_id=artist_id)
+        db.session.add(new_artist)
+        db.session.commit()
+    else:
+        flask.flash("Sorry, that artist isn't on Spotify!")
+    return flask.redirect("/userpage")
 
 
 app.run(host="0.0.0.0", port=int(os.getenv("PORT", "8080")))

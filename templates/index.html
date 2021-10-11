@@ -22,15 +22,21 @@
             </p>
             <p class="songlyrics"><a href={{ random_song["genius_url"] }}>Lyrics</a></p>
             <p><small><a href=".">Different song, please :(</a></small></p>
-            <p>
-                {% with messages = get_flashed_messages() %}
-                {% if messages %}
+            <form method="POST" action="/songadd">
+                <input type="text" name="artistname" placeholder="Artist Name"/>
+                <input type="submit" value="Add Artist">
+            </form>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul class="flashes">
                 {% for message in messages %}
-                {{ message }}
+                <li>
+                    {{ message }}
+                </li>
                 {% endfor %}
-                {% endif %}
-                {% endwith %}
-            </p>
+            </ul>
+            {% endif %}
+            {% endwith %}
             <p><a href="/logout">Log Out</a></p>
         </div>
     </body>

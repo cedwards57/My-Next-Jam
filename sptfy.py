@@ -35,7 +35,18 @@ headers = {"Authorization": str("Bearer " + token)}
 genius_headers = {"Authorization": "Bearer " + GENIUS_TOKEN}
 
 
-def get_info():
+def get_artist_from_search(query):
+    params = {"q": query, "type": "artist", "limit": 1}
+    try:
+        response = requests.get(BASE_URL + "search", headers=headers, params=params)
+        response_json = response.json()
+        artist_id = response_json["artists"]["items"][0]["id"]
+        return artist_id
+    except (KeyError, IndexError):
+        return "x"
+
+
+def get_info(my_artists):
     """Grabs all the Spotify & Genius info needed for the page. Imported to app.py."""
 
     def get_genius_url(query):
@@ -126,27 +137,16 @@ def get_info():
         except KeyError:
             return "x"
 
-    def get_artist_from_search(query):
-        params = {"q": query, "type": "artist", "limit": 1}
-        try:
-            response = requests.get(BASE_URL + "search", headers=headers, params=params)
-            response_json = response.json()
-            artist_id = response_json["artists"]["items"][0]["id"]
-            return artist_id
-        except (KeyError, IndexError):
-            return "x"
-
-    my_artists = {
-        "MARINA": "6CwfuxIqcltXDGjfZsMd9A",
-        "The Hush Sound": "1RCoE2Dq19lePKhPzt9vM5",
-        "The Family Crest": "44CB1c0W2h1XR2vB7AKpa7",
-        "ABBA": get_artist_from_search("ABBA"),
-        "Lemon Demon": get_artist_from_search("Lemon Demon"),
-        "Brick + Mortar": get_artist_from_search("Brick + Mortar"),
-    }
+    my_artists_default = [
+        "6CwfuxIqcltXDGjfZsMd9A",
+        "1RCoE2Dq19lePKhPzt9vM5",
+        "44CB1c0W2h1XR2vB7AKpa7",
+        get_artist_from_search("ABBA"),
+        get_artist_from_search("Lemon Demon"),
+    ]
 
     random_song = get_track_info(
-        get_random_track(get_random_album(random.choice(list(my_artists.values()))))
+        get_random_track(get_random_album(random.choice(my_artists)))
     )
 
     query = "ABBA"  # change to user input

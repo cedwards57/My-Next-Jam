@@ -21,3 +21,6 @@ class LikesArtist(db.Model):
 
     def __repr__(self):
         return "<LikesArtist %r %r>" % (self.username, self.artist_id)
+
+    def get_artist_id(self):
+        return self.artist_id
