@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type="text/javascript" src="/static/enter.js"></script>
+        <link rel="stylesheet" href="/static/enter.css" type="text/css" />
+    </head>
+    <body>
+        <form method="POST" action="/login">
+            <input type="text" name="username" placeholder="Username"/>
+            <input type="text" name="password" placeholder="Password"/>
+            <input type="submit" value="Sign Up">
+        </form>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul class="flashes">
+            {% for message in messages %}
+            <li>
+                {{ message }}
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+        <div><a href="/create">Sign Up</a></div>
+    </body>
+</html>
