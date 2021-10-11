@@ -8,7 +8,7 @@ from flask_login import (
     login_user,
     logout_user,
 )
-from sptfy import get_info, get_artist_from_search
+from sptfy import get_info, get_artist_from_search, get_artist_name_from_id
 from models import UserLogin, LikesArtist, db
 from flask_sqlalchemy import SQLAlchemy
 
@@ -88,16 +88,21 @@ def signup():
 def userpage():
     artist_ids = LikesArtist.query.filter_by(username=current_user.username).all()
     my_artists = [i.artist_id for i in artist_ids]
+    if my_artists == []:
+        my_artists = ["x"]
+        flask.flash("You don't have any artists... Add one above!")
     sptfy_data = get_info(my_artists)
+    artist_names = [get_artist_name_from_id(j) for j in my_artists]
     random_song = sptfy_data["random_song"]
-    return flask.render_template("index.html", random_song=random_song)
+    return flask.render_template(
+        "index.html", random_song=random_song, artist_names=artist_names
+    )
 
 
 @app.route("/songadd", methods=["POST"])
 @login_required
 def songadd():
     artist_name = flask.request.form["artistname"]
-    print(artist_name)
     artist_id = get_artist_from_search(artist_name)
     if artist_id != "x":
         new_artist = LikesArtist(username=current_user.username, artist_id=artist_id)

@@ -38,6 +38,13 @@
             {% endif %}
             {% endwith %}
             <p><a href="/logout">Log Out</a></p>
+            <div>
+                {% if artist_names != [] %}
+                    {% for i in artist_names %}
+                        {{ i }}
+                    {% endfor %}
+                {% endif %}
+            </div>
         </div>
     </body>
 </html>

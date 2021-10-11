@@ -46,6 +46,16 @@ def get_artist_from_search(query):
         return "x"
 
 
+def get_artist_name_from_id(artist_id):
+    try:
+        response = requests.get(BASE_URL + "artists/" + artist_id, headers=headers)
+        response_json = response.json()
+        artist_id = response_json["name"]
+        return artist_id
+    except (KeyError, IndexError):
+        return "Internal Error. No artist found."
+
+
 def get_info(my_artists):
     """Grabs all the Spotify & Genius info needed for the page. Imported to app.py."""
 
@@ -58,7 +68,7 @@ def get_info(my_artists):
             genius_response_json = genius_response.json()
             song_path = genius_response_json["response"]["hits"][0]["result"]["path"]
             return "https://genius.com" + song_path
-        except KeyError:
+        except (KeyError, IndexError):
             return "https://genius.com/Rick-astley-never-gonna-give-you-up-lyrics"
 
     def get_track_info(track_id):
