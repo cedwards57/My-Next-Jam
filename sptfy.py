@@ -53,7 +53,7 @@ def get_artist_name_from_id(artist_id):
         artist_id = response_json["name"]
         return artist_id
     except (KeyError, IndexError):
-        return "Internal Error. No artist found."
+        return "No artists found."
 
 
 def get_info(my_artists):
