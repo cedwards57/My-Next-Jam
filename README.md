@@ -44,11 +44,16 @@ replacing **yourclientid** and **yourclientsecret** with the corresponding infor
 
 4. Add a variable called `GENIUS_TOKEN` in `.env` in the same manner as before, using the generated access token as the value. You don't need to worry about the Client ID or Secret here.
 
+5. In your terminal, run the command `python3 -c 'import os; print(os.urandom(16))'` and add the output to `.env` with the variable name `SECRET_KEY`.
+
 ## Install Requirements
 
 If you haven't already installed them, run these commands:
 <br>`pip install python-dotenv`
 <br>`pip install requests`
+<br>`sudo apt install postgresql`
+<br>`pip install psycopg2-binary`
+<br>`pip install Flask-SQLAlchemy==2.1`
 
 ## Deploy to Heroku
 
@@ -56,9 +61,11 @@ If you haven't already installed them, run these commands:
 2. Create a [Heroku Account](https://signup.heroku.com/login) (it's free)
 3. Log in to Heroku: `heroku login -i`
 4. Create an app: `heroku create {appname}`. Replace {appname} with your desired app name, which must be unique from all other heroku URLs. You can leave it off entirely (just using `heroku create`) for an auto-generated app name.
-5. Push your code to Heroku: `git push heroku main`.
-6. Go to [your apps](https://dashboard.heroku.com/apps) on Heroku, select **your app**, go to **Settings**, and click **Reveal Config Vars**. Create variables called `CLIENT_ID`, `CLIENT_SECRET`, and `GENIUS_TOKEN` with the corresponding values from your spotify dev app, like in your `.env` file.
-7. Run `heroku open` in the terminal to view the app.
+5. Create a database for your app to use: `heroku addons:create heroku-postgresql:hobby-dev`
+6. Push your code to Heroku: `git push heroku main`.
+7. Go to [your apps](https://dashboard.heroku.com/apps) on Heroku, select **your app**, go to **Settings**, and click **Reveal Config Vars**. Create variables called `CLIENT_ID`, `CLIENT_SECRET`, `GENIUS_TOKEN`, and `SECRET_KEY` with the corresponding values from your spotify dev app, like in your `.env` file.
+8. In the same place, find the `DATABASE_URL` varable. Copy it into a new variable called `DATABASE_URL_QL`, and change the `postgres://` at the start to `postgresql://`. Add `DATABASE_URL_QL` to your `.env` file as well.
+9. Run `heroku open` in the terminal to view the app.
 
 WIP. to add:
 
@@ -67,17 +74,16 @@ WIP. to add:
 ## Question Responses
 
 **A. What are at least 3 technical issues you encountered with your project? How did you fix them?**
-1. For a while I couldn't get the app to appear correctly on Heroku, but it turned out I had a problem in `sptfy.py` where I was trying to access list values out of a dictionary without specifying the key.
-2. I had trouble with getting Spotify to properly authenticate, but once I learned how to do the base64 authentication and convert it to usable format, it worked fine. I also had troublr where I thought for a while that the `params` items should be in `headers`, and couldn't figure out why it wasn't recognizing my given parameters until that was fixed.
-3. Kept finding that my artists were turning up albums like "Indie Pop 101" or whatever, which are generalized playlists with tons of artists, not actual albums.
-4. Had a problem where Genius would glitch on Heroku only, which turned out to be because I forgot to include that API key on Heroku.
+1. For a while, I couldn't get the database commands to work at all. Some of this was syntax problems, but I was also missing some expected requirements, like having a `get_id()` function in my UserLogin class.
+2. For the life of me I couldn't get the database additions to appear in the database, until it turned out I was just not establishing context (the stuff around the `db.create_all()` line).
+3. I had problems with circular imports for a while. I solved this by establishing `db` inside the `models.py` file, and importing that into `app.py` (instead of the other way around), so that it'd be going in the same direction as the other imports from `models.py`.
+4. No songs were returning preview URLs, no matter what I did. I solved this by just embedding Spotify's song player instead.
+5. Genius wasn't returning the correct songs a lot of the time; I updated its function to include the artist name along with the title in the search.
 
 **B. What are known problems (still existing), if any, with your project?**
-Genius has a flaw where it rarely returns the correct song from the exact title, though this was listed in the specs as fine (although I'll probably try to fix it later anyway.) I'll likely fix this by adding more into the Genius query parameter, like writing the song's name and artist both in the query. I'll need to experiment some with it.
-
-Additionally, I've never had a song successfully return a preview URL, regardless of market region or anything else. (As in, there's literally no link returned in the track information, even when it should be.) I'd like to work on implementing a music player instead, to circumvent this.
+No real problems, but I'd like to update the design.
 
 **C. What would you do to improve your project in the future?**
-I'd probably want to fiddle more with `sptfy.py` to make it pass less redundant parameters throughout. I'd also want to display more songs at once, and add in search functionality. Maybe add a thing where you can search for an artist, then that artist gets added to a list of checkboxes, then you can use those checkboxes to choose what selection of artists you get a random song from?
+I'd like to create functionality where the list of artists has checkboxes, and you can click the checkbox by certain artists in order to only include songs from those artists in the shuffle.
 
-I also might work on making the Genius lyrics more accurate, and if possible, pulling the lyrics out and listing them somewhere, like to the side. Additionally,
+I'd also like to add in a selection of the lyrics from the given random song, should the Genius API allow it.

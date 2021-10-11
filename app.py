@@ -18,7 +18,7 @@ load_dotenv(find_dotenv())
 
 app = flask.Flask(__name__)
 app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 0
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db.sqlite"
+app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL_QL")
 app.secret_key = os.getenv("SECRET_KEY")
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -95,7 +95,10 @@ def userpage():
     artist_names = [get_artist_name_from_id(j) for j in my_artists]
     random_song = sptfy_data["random_song"]
     return flask.render_template(
-        "index.html", random_song=random_song, artist_names=artist_names
+        "index.html",
+        random_song=random_song,
+        artist_names=artist_names,
+        user=current_user.username,
     )
 
 

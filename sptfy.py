@@ -59,17 +59,30 @@ def get_artist_name_from_id(artist_id):
 def get_info(my_artists):
     """Grabs all the Spotify & Genius info needed for the page. Imported to app.py."""
 
-    def get_genius_url(query):
+    def get_genius_url(query_name, query_artist):
         """Return a link to the first song lyrics result of a genius query."""
         try:
             genius_response = requests.get(
-                GENIUS_BASE_URL + f"search?q={query}", headers=genius_headers
+                GENIUS_BASE_URL + f"search?q={query_name} {query_artist}",
+                headers=genius_headers,
             )
             genius_response_json = genius_response.json()
             song_path = genius_response_json["response"]["hits"][0]["result"]["path"]
             return "https://genius.com" + song_path
-        except (KeyError, IndexError):
+        except KeyError:
             return "https://genius.com/Rick-astley-never-gonna-give-you-up-lyrics"
+        except IndexError:
+            try:
+                genius_response = requests.get(
+                    GENIUS_BASE_URL + f"search?q={query_name}", headers=genius_headers
+                )
+                genius_response_json = genius_response.json()
+                song_path = genius_response_json["response"]["hits"][0]["result"][
+                    "path"
+                ]
+                return "https://genius.com" + song_path
+            except (KeyError, IndexError):
+                return "https://genius.com/Rick-astley-never-gonna-give-you-up-lyrics"
 
     def get_track_info(track_id):
         """Return a dictionary of all necessary info for a single song."""
@@ -80,12 +93,9 @@ def get_info(my_artists):
                 BASE_URL + "tracks/" + track_id, headers=headers, params=params
             )
             response_json = response.json()
-            genius_query = (
-                response_json["name"]
-                + " "
-                + response_json["album"]["artists"][0]["name"]
-            )
-            genius_url = get_genius_url(genius_query)
+            genius_query_name = response_json["name"]
+            genius_query_artist = response_json["album"]["artists"][0]["name"]
+            genius_url = get_genius_url(genius_query_name, genius_query_artist)
 
             track_info = {
                 "name": response_json["name"],
