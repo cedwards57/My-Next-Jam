@@ -135,16 +135,14 @@ def songadd():
 def songdel():
     all_ids = LikesArtist.query.filter_by(username=current_user.username)
     all_ids_list = [i.artist_id for i in all_ids]
-    k = 0
     for j in all_ids_list:
         remove_this = flask.request.form.get(j) != None
         if remove_this:
             artist_entry = LikesArtist.query.filter_by(
-                username=current_user.username, artist_id=all_ids_list[k]
+                username=current_user.username, artist_id=j
             ).first()
             db.session.delete(artist_entry)
-            db.session.commit()
-        k += 1
+    db.session.commit()
     flask.flash("Artists removed.")
     return flask.redirect("/userpage")
 

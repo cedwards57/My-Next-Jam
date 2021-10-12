@@ -157,24 +157,10 @@ def get_info(my_artists):
         except KeyError:
             return "x"
 
-    my_artists_default = [
-        "6CwfuxIqcltXDGjfZsMd9A",
-        "1RCoE2Dq19lePKhPzt9vM5",
-        "44CB1c0W2h1XR2vB7AKpa7",
-        get_artist_from_search("ABBA"),
-        get_artist_from_search("Lemon Demon"),
-    ]
-
     random_song = get_track_info(
         get_random_track(get_random_album(random.choice(my_artists)))
     )
 
-    query = "ABBA"  # change to user input
-    random_song_from_input_artist = get_track_info(
-        get_random_track(get_random_album(get_artist_from_search(query)))
-    )
-
     return {
         "random_song": random_song,
-        "random_song_output": random_song_from_input_artist,
     }
