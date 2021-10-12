@@ -6,8 +6,12 @@
         <script type="text/javascript" src="/static/script.js"></script>
     </head>
     <body>
-        <div class="songbox">
-            <small>Welcome, {{ user }}!</small>
+        <div style="grid-area: header"></div>
+        <div style="grid-area: footer"></div>
+        <div style="grid-area: left">&nbsp;</div>
+        <div style="grid-area: middle">
+            <div class="songbox">
+            <small>Welcome, {{ user }}! Here's your song of the day...</small>
             <h2 class="songtitle">{{ random_song["name"] }}</h2>
             <h3 class="songartist">{{ random_song["artist"] }}</h3>
             <h4 class="songalbum">{{ random_song["album"] }}</h4>
@@ -21,11 +25,22 @@
                 No preview available
                 {% endif %}
             </p>
-            <p class="songlyrics"><a href={{ random_song["genius_url"] }}>Lyrics</a></p>
-            <p><small><a href=".">Different song, please :(</a></small></p>
+            <p class="songlyrics"><a href={{ random_song["genius_url"] }} target="_blank">Lyrics</a></p>
+            <p><small><a href="./userpage">Different song, please :(</a></small></p>
+        </div></div>
+        <div style="grid-area: right">
+            <div class="sidebar">
+            <strong>Your Favorites</strong>
+            {% if artist_names != [] %}
+            <ul>
+                {% for i in artist_names %}
+                    <li>{{ i }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
             <form method="POST" action="/songadd">
-                <input type="text" name="artistname" placeholder="Artist Name"/>
-                <input type="submit" value="Add Artist">
+                <input type="text" name="artistname" placeholder="Artist Name" class="inp-txt"/>
+                <input type="submit" value="Add Artist" class="inp-btn">
             </form>
             {% with messages = get_flashed_messages() %}
             {% if messages %}
@@ -38,14 +53,8 @@
             </ul>
             {% endif %}
             {% endwith %}
-            <p><a href="/logout">Log Out</a></p>
-            <div>
-                {% if artist_names != [] %}
-                    {% for i in artist_names %}
-                        {{ i }}
-                    {% endfor %}
-                {% endif %}
-            </div>
         </div>
+        <a href="/logout"><div class="logout">Log Out</div></a>
+    </div>
     </body>
 </html>

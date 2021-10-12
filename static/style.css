@@ -1,14 +1,81 @@
 body {
-    background-color: #eee8aa;
+    background-image: linear-gradient(#eee8aa,#f08080);
     font-family: 'Courier New', monospace;
+    background-attachment: fixed;
+    display: grid;
+    grid-template-columns: auto 450px auto;
+    grid-column-gap: 15px;
+    grid-row-gap: 15px;
+    grid-template-areas: 
+        "header header header"
+        "left middle right"
+        "footer footer footer";
 }
 
 .songbox {
-    border: 2px solid #f08080;
+    border: 2px solid #d44646;
     border-radius: 5px;
-    padding: 20px;
+    padding: 20px 20px 5px 20px;
     width: 400px;
     text-align: center;
-    margin: 15px auto;
     background-color: white;
+    font-size: 16px;
+}
+
+.sidebar {
+    padding: 30px 20px;
+    border: 1px solid;
+    background-color: #222;
+    color: white;
+    border-radius: 5px;
+    width: 200px;
+}
+
+.sidebar ul {
+    padding: 10px;
+}
+
+.flashes li {
+    color: #ccc;
+    font-size: 12px;
+}
+
+.flashes {
+    padding-left: 10px;
+}
+
+.inp-btn {
+    background-color: #d44646;
+    color: white;
+    border: 1px solid white;
+    margin-top: 5px;
+    padding: 6px;
+}
+
+.inp-btn:hover {
+    background-color: white;
+    color: #d44646;
+    border-color: #d44646;
+}
+
+.inp-txt {
+    border: 1px solid #d44646;
+    padding: 4px;
+}
+
+.logout {
+    padding: 10px;
+    background-color: #ddd;
+    margin-top: 10px;
+    display: inline-block;
+    border-radius: 4px;
+}
+
+.logout {
+    color: #963c32;
+    text-decoration:bold;
+}
+
+.logout:hover {
+    color: #d44646;
 }

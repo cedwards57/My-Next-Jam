@@ -12,8 +12,6 @@ from sptfy import get_info, get_artist_from_search, get_artist_name_from_id
 from models import UserLogin, LikesArtist, db
 
 load_dotenv(find_dotenv())
-# testuser1, xyz
-# userone, testone
 
 app = flask.Flask(__name__)
 app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 0
@@ -106,12 +104,22 @@ def userpage():
 def songadd():
     artist_name = flask.request.form["artistname"]
     artist_id = get_artist_from_search(artist_name)
-    if artist_id != "x":
+    artist_exists = (
+        LikesArtist.query.filter_by(
+            username=current_user.username, artist_id=artist_id
+        ).first()
+        != None
+    )
+    print(artist_exists)
+    if artist_id != "x" and artist_exists == False:
         new_artist = LikesArtist(username=current_user.username, artist_id=artist_id)
         db.session.add(new_artist)
         db.session.commit()
-    else:
+        flask.flash("Artist added to your list!")
+    elif artist_id == "x":
         flask.flash("Sorry, that artist isn't on Spotify!")
+    else:
+        flask.flash("That one's already on your list!")
     return flask.redirect("/userpage")
 
 

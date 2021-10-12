@@ -81,7 +81,11 @@ WIP. to add:
 5. Genius wasn't returning the correct songs a lot of the time; I updated its function to include the artist name along with the title in the search.
 
 **B. What are known problems (still existing), if any, with your project?**
-No known problems, though I'd like to make the front-end design a little more elegant, and divide up the modules on the back-end a little more.
+I'd like to make the front-end design a little more elegant, and divide up the modules on the back-end a little more.
+
+There's an error I've seen crop up once with parsing the initial JSON (the Spotify Auth one, I think?), but I haven't been able to replicate it, so I'm going to leave it. If it comes up again, I'll see if I can do a fix.
+
+Genius... still doesn't actually return the correct song a lot of the time. I have no idea what's going on in the backend for its Search API to return results with not even a single word in common with the song that was searched for. But it does return the correct song more often than it used to!
 
 **C. What would you do to improve your project in the future?**
 I'd like to create functionality where the list of artists has checkboxes, and you can click the checkbox by certain artists in order to only include songs from those artists in the shuffle.

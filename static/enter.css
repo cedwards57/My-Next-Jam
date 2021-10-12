@@ -1,3 +1,36 @@
+body {
+    background-image: linear-gradient(#eee8aa,#f08080);
+    font-family: 'Courier New', monospace;
+    background-attachment: fixed;
+}
+
 .flashes li {
     color: red;
+}
+
+.logbox {
+    margin: 15px auto;
+    padding: 20px;
+    width: 300px;
+    text-align: center;
+    background-color: white;
+    border-radius: 5px;
+    border: 2px solid purple;
+}
+
+.logbox input {
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+.loglink {
+    text-align:right;
+}
+
+.loglink a {
+    text-decoration:none
+}
+
+.loglink a:hover {
+    color: skyblue;
 }
