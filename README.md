@@ -91,3 +91,13 @@ Genius... still doesn't actually return the correct song a lot of the time. I ha
 I'd like to create functionality where the list of artists has checkboxes, and you can click the checkbox by certain artists in order to only include songs from those artists in the shuffle.
 
 I'd also like to add in a selection of the lyrics from the given random song, should the Genius API allow it.
+
+## Bonus Features
+
+- Logout Button
+
+- Add artists by name, not ID
+
+- Password check included in authentication
+
+- Artists can be removed
