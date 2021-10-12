@@ -112,7 +112,6 @@ def songadd():
         ).first()
         != None
     )
-    print(artist_exists)
     if artist_id != "x" and artist_exists == False:
         new_artist = LikesArtist(username=current_user.username, artist_id=artist_id)
         db.session.add(new_artist)
