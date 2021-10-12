@@ -29,6 +29,12 @@ def load_user(user_id):
     return UserLogin.query.get(user_id)
 
 
+@login_manager.unauthorized_handler
+def unauthorized_callback():
+    flask.flash("You must be logged in to view that page.")
+    return flask.redirect("/")
+
+
 @app.route("/")  # login GET
 def enter():
     if current_user.is_authenticated:
