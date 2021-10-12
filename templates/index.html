@@ -32,11 +32,12 @@
             <div class="sidebar">
             <strong>Your Favorites</strong>
             {% if artist_names != [] %}
-            <ul>
-                {% for i in artist_names %}
-                    <li>{{ i }}</li>
+            <form method="POST" action="/songdel">
+                {% for i in range(artist_num) %}
+                    <input type="checkbox" name={{ artist_ids[i] }}>{{ artist_names[i] }}</input><br/>
                 {% endfor %}
-            </ul>
+                <input type="submit" value="Remove Artists" class="del-btn"/>
+            </form>
             {% endif %}
             <form method="POST" action="/songadd">
                 <input type="text" name="artistname" placeholder="Artist Name" class="inp-txt"/>

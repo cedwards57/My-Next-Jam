@@ -96,6 +96,8 @@ def userpage():
         random_song=random_song,
         artist_names=artist_names,
         user=current_user.username,
+        artist_ids=my_artists,
+        artist_num=len(artist_names),
     )
 
 
@@ -120,6 +122,25 @@ def songadd():
         flask.flash("Sorry, that artist isn't on Spotify!")
     else:
         flask.flash("That one's already on your list!")
+    return flask.redirect("/userpage")
+
+
+@app.route("/songdel", methods=["POST"])
+@login_required
+def songdel():
+    all_ids = LikesArtist.query.filter_by(username=current_user.username)
+    all_ids_list = [i.artist_id for i in all_ids]
+    k = 0
+    for j in all_ids_list:
+        remove_this = flask.request.form.get(j) != None
+        if remove_this:
+            artist_entry = LikesArtist.query.filter_by(
+                username=current_user.username, artist_id=all_ids_list[k]
+            ).first()
+            db.session.delete(artist_entry)
+            db.session.commit()
+        k += 1
+    flask.flash("Artists removed.")
     return flask.redirect("/userpage")
 
 

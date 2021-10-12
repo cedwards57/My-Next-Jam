@@ -61,6 +61,21 @@ body {
 .inp-txt {
     border: 1px solid #d44646;
     padding: 4px;
+    margin-top: 24px;
+}
+
+.del-btn {
+    background-color: #daa22c;
+    color: white;
+    border: 1px solid white;
+    margin-top: 5px;
+    padding: 6px;
+}
+
+.del-btn:hover {
+    background-color: white;
+    color: #daa22c;
+    border-color: #daa22c;
 }
 
 .logout {
