@@ -13,6 +13,7 @@ from models import UserLogin, LikesArtist, db
 
 load_dotenv(find_dotenv())
 
+
 app = flask.Flask(__name__)
 app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 0
 app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL_QL")
