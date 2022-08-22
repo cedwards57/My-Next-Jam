@@ -1,4 +1,4 @@
-# Favorite Artists Web App
+# My Next Jam
 
 You can view my live edition of this app at [https://favartists.herokuapp.com/](https://favartists.herokuapp.com/)
 
@@ -12,11 +12,11 @@ This app uses the Spotify Developer API to pull its information, Flask with Jinj
 
 ## Clone this Repository
 
-1. Go to [https://github.com/new](https://github.com/new) and create a new repository. The name can be anything, but for this example, let's say it's named `spotifyapp`.
+1. Go to [https://github.com/new](https://github.com/new) and create a new repository. The name can be anything, but for this example, let's say it's named `musicapp`.
 2. In your command terminal, use `cd` to go to the folder where you want to have this app's files.
 3. `git clone https://github.com/cedwards57/favartists.git`
 4. `cd` into the newly created repository, and you should see the new files.
-5. Connect this to your github repo using `git remote set-url origin https://github.com/{yourusername}/spotifyapp`. Replace {yourusername} with your username, *without* curly braces.
+5. Connect this to your github repo using `git remote set-url origin https://github.com/{yourusername}/musicapp`. Replace {yourusername} with your username, *without* curly braces.
 6. `git push origin main` to have the cloned repo appear in your personal github repo.
 
 ## Spotify Developer Account & Setup
@@ -56,5 +56,5 @@ If you haven't already installed everything in the requirements.txt, run `pip in
 5. Create a database for your app to use: `heroku addons:create heroku-postgresql:hobby-dev`
 6. Push your code to Heroku: `git push heroku main`.
 7. Go to [your apps](https://dashboard.heroku.com/apps) on Heroku, select **your app**, go to **Settings**, and click **Reveal Config Vars**. Create variables called `CLIENT_ID`, `CLIENT_SECRET`, `GENIUS_TOKEN`, and `SECRET_KEY` with the corresponding values from your spotify dev app, like in your `.env` file.
-8. In the same place, find the `DATABASE_URL` varable. Copy it into a new variable called `DATABASE_URL_QL`, and change the `postgres://` at the start to `postgresql://`. Add `DATABASE_URL_QL` to your `.env` file as well.
+8. In the same place, find the `DATABASE_URL` varable. Copy it into a new variable called `DATABASE_URL_QL`, and change the `postgres://` at the start to `postgresql://`. Add `DATABASE_URL_QL` to your `.env` file as well, for local testing.
 9. Run `heroku open` in the terminal to view the app.
