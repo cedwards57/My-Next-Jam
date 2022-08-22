@@ -1,6 +1,6 @@
 # My Next Jam
 
-You can view my live edition of this app at [https://favartists.herokuapp.com/](https://favartists.herokuapp.com/)
+You can view my live edition of this app at [https://mynextjam.herokuapp.com/](https://favartists.herokuapp.com/)
 
 The following are instructions to implement this app for yourself.
 
@@ -14,7 +14,7 @@ This app uses the Spotify Developer API to pull its information, Flask with Jinj
 
 1. Go to [https://github.com/new](https://github.com/new) and create a new repository. The name can be anything, but for this example, let's say it's named `musicapp`.
 2. In your command terminal, use `cd` to go to the folder where you want to have this app's files.
-3. `git clone https://github.com/cedwards57/favartists.git`
+3. `git clone https://github.com/cedwards57/My-Next-Jam.git`
 4. `cd` into the newly created repository, and you should see the new files.
 5. Connect this to your github repo using `git remote set-url origin https://github.com/{yourusername}/musicapp`. Replace {yourusername} with your username, *without* curly braces.
 6. `git push origin main` to have the cloned repo appear in your personal github repo.
