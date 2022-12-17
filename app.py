@@ -147,5 +147,10 @@ def songdel():
     flask.flash("Artists removed.")
     return flask.redirect("/userpage")
 
+@app.errorhandler(Exception)
+def error(e):
+    flask.flash(e)
+    return flask.render_template('error.html')
+
 
 app.run(host="0.0.0.0", port=int(os.getenv("PORT", "8080")))

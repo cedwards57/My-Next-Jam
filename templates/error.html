@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/static/error.css" type="text/css" />
+    </head>
+    <body>
+        <div class="logbox">
+        Sorry, an error occurred when trying to complete your request. If you believe this is a mistake, please <a href="https://github.com/cedwards57/My-Next-Jam/issues" target="_blank">submit an issue</a> with steps to replicate this error and the following information:
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul class="flashes">
+            {% for message in messages %}
+            <li>
+                {{ message }}
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+        <div class="loglink"><a href="/">Return Home</a></div>
+    </div>
+    </body>
+</html>

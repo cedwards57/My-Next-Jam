@@ -25,10 +25,10 @@ This app uses the Spotify Developer API to pull its information, Flask with Jinj
 3. Click **Create An App**, enter the necessary information, then click **Create**.
 4. From the app's screen, you can find the Client ID and Client Secret. If you want to test your app locally, create a file called **.env** with these contents:
 
-> export CLIENT_ID="yourclientid"<br>
-> export CLIENT_SECRET="yourclientsecret"
+> export CLIENT_ID="{your Spotify client id}"<br>
+> export CLIENT_SECRET="{your Spotify client secret}"
 
-replacing **yourclientid** and **yourclientsecret** with the corresponding information.
+replacing **{your Spotify client id}** and **{your Spotify client secret}** with the corresponding information. You will also need to add the `GENIUS_TOKEN`, `SECRET_KEY`, and `DATABASE_URL_QL` variables to this file, as described below.
 
 **NOTE: Keep your ID and Secret secure. The .env file is intentionally listed in the .gitignore file.**
 
