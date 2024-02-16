@@ -1,7 +1,5 @@
 # My Next Jam
 
-You can view my live edition of this app at [https://mynextjam.herokuapp.com/](https://mynextjam.herokuapp.com/)
-
 The following are instructions to implement this app for yourself.
 
 ## Notes
